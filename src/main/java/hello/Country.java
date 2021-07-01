@@ -26,7 +26,7 @@ public class Country {
     }
 
     @JsonIgnore
-    @OneToMany
+    @OneToMany(mappedBy = "country",  fetch = FetchType.EAGER)
     private Set<Region> regions =  new HashSet<>();;
 
     public Set<Region> getRegions() {

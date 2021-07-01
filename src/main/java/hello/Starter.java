@@ -7,6 +7,9 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.List;
+import java.util.Set;
+
 
 @Configuration
 @ComponentScan
@@ -50,21 +53,18 @@ public class Starter {
         City city4 = new City("Мельбурн", region3);
         cityRepository.save(city4);
 
-        Iterable<Country> cou = countryRepository.findAll();
-        Iterable<Region> reg = regionRepository.findAll();
-        Iterable<City> cit = cityRepository.findAll();
-
-        for (Country country : cou) {
+        List<Country> countries = (List<Country>) countryRepository.findAll();
+        for (Country country : countries) {
             System.out.println(country.getName());
-            for (Region region : regionRepository.findByCountry(country)) {
+            Set<Region> regions = country.getRegions();
+            for (Region region : regions) {
                 System.out.println(" " + region.getName());
-                for (City city : cityRepository.findByRegion(region)) {
+                Set<City> cities = region.getCities();
+                for (City city : cities) {
                     System.out.println("  " + city.getName());
                 }
             }
         }
-
         context.close();
-
     }
 }

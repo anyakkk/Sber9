@@ -30,7 +30,7 @@ public class Region {
     }
 
     @JsonIgnore
-    @OneToMany(mappedBy = "region", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "region", fetch = FetchType.EAGER)
     private Set<City> cities = new HashSet<>();
 
     public Long getId() {
@@ -47,6 +47,14 @@ public class Region {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<City> getCities() {
+        return cities;
+    }
+
+    public void setCities(Set<City> cities) {
+        this.cities = cities;
     }
 
     public Country getCountry() {
